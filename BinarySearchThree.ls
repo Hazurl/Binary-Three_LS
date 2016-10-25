@@ -34,18 +34,17 @@ global BST = @(function () {
 							
 							if (cmd === insert) 
 								return @function (@__value) {
-									if (_orderFunction(value, _value)) {
+									if (_orderFunction(_value, __value)) {
 										if (_right === null)
 											_right = Three(new)(__value);
-										else 
+										else
 											_right(insert)(__value);
 									} else {
-										if (!_left === null)
+										if (_left === null)
 											_left = Three(new)(__value);
 										else 
 											_left(insert)(__value);
 									}
-
 								};
 							if (cmd === prefix)
 								return function (@f) {
