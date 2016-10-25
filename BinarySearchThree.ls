@@ -1,12 +1,73 @@
+// Binary Search three
 global BST = @(function () {
 	var _new = @function (@OrderFunction) {
 		var _root = @null;
 		var _orderFunction = @OrderFunction;
 
+		var Three = @function (@_cmd) {
+			if (_cmd === new)
+				return @function (@value) {
+					return @(function () {
+						var _value = @value;
+						var _left;
+						var _right;
+						return function (@cmd) {
+							if (cmd === getValue)
+								return @_value;
+							if (cmd === getLeftBranch)
+								return _left;
+							if (cmd === getRightBranch)
+								return _right;
+							if (cmd === setValue)
+								return @function (@val) {
+									_value = @val;
+								};
+							if (cmd === setLeftBranch)
+								return @function (@left) {
+									_left = @left;
+								};
+							if (cmd === setRightBranch)
+								return @function (@right) {
+									_right = @right;
+								};
+
+							
+							if (cmd === insert) 
+								return @function (@__value) {
+									if (_orderFunction(value, _value)) {
+										if (_right === null)
+											_right = Three(new)(__value);
+										else 
+											_right(insert)(__value);
+									} else {
+										if (!_left === null)
+											_left = Three(new)(__value);
+										else 
+											_left(insert)(__value);
+									}
+
+								};
+							if (cmd === prefix)
+								return function (@f) {
+									f(_value);
+									if (_left !== null)
+										_left(prefix)(f);
+									if (_right !== null)
+										_right(prefix)(f);
+								};
+						};
+					})();
+				};
+		};
+
 		return @function (@cmd) {
 			if (cmd === insert)
 				return @function (@value) {
-
+					if (_root === null)
+						_root = Three(new)(value);
+					else {
+						_root(insert)(value);
+					}
 				};
 			if (cmd === removeIndex)
 				return @function (@index) {
@@ -21,11 +82,18 @@ global BST = @(function () {
 
 				};
 			if (cmd === prefix)
-				return;
+				return function (@f) {
+					if (_root !== null)
+						_root(prefix)(f);
+				};
 			if (cmd === infix)
-				return;
+				return function (@f) {
+
+				};
 			if (cmd === suffix)
-				return;
+				return function (@f) {
+
+				};
 			if (cmd === getIndexOf)
 				return @function (@index) {
 
@@ -41,7 +109,7 @@ global BST = @(function () {
 			if (cmd === height)
 				return;
 			if (cmd === equalsTo)
-				return @function (@BST) {
+				return @function (@_BST) {
 
 				};
 			if (cmd === reversePrefix)
@@ -52,40 +120,9 @@ global BST = @(function () {
 				return;
 		};
 	};
+
 	var _instanceOf = @0;
 
-	var NODE = @function (@cmd) {
-		if (cmd === new)
-			return @function (@value) {
-				return @(function () {
-					var _value = @value;
-					var _left = @null;
-					var _right = @null;
-					return function (@cmd) {
-						if (cmd === getValue)
-							return @_value;
-						if (cmd === getLeftBranch)
-							return _left;
-						if (cmd === getRightBranch)
-							return _right;
-
-						if (cmd === setValue)
-							return @function (@val) {
-								_value = @val;
-							};
-						if (cmd === setLeftBranch)
-							return @function (@left) {
-								_left = @left;
-							};
-						if (cmd === setRightBranch)
-							return @function (@right) {
-								_right = @right;
-							};
-
-					};
-				})();
-			};
-	};
 
 	return @function (@cmd) {
 
@@ -93,7 +130,7 @@ global BST = @(function () {
 			return @function (@OrderFunction) {
 				_instanceOf++;
 				return @_new(OrderFunction);
-			}
+			};
 		if (cmd === getInstance)
 			return @_instanceOf;
 	};
