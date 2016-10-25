@@ -6,6 +6,8 @@ global BST = @(function () {
 		return @function (@cmd) {
 			if (cmd === insert)
 				return;
+			if (cmd === remove)
+				return;
 			if (cmd === contains)
 				return;
 			if (cmd === prefix)
@@ -87,6 +89,8 @@ global getLeftBranch = @'getLeftBranch';
 global setValue = @'getValue';
 global setRightBranch = @'getRightBranch';
 global setLeftBranch = @'getLeftBranch';
+global insert = @'insert';
+global remove = @'remove';
 global contains = @'contains';
 global prefix = @'prefix';
 global infix = @'infix';
