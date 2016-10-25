@@ -5,19 +5,35 @@ global BST = @(function () {
 
 		return @function (@cmd) {
 			if (cmd === insert)
-				return;
-			if (cmd === remove)
-				return;
+				return @function (@value) {
+
+				};
+			if (cmd === removeIndex)
+				return @function (@index) {
+					
+				};
+			if (cmd === removeFirst)
+				return @function (@index) {
+					
+				};
 			if (cmd === contains)
-				return;
+				return @function (@value) {
+
+				};
 			if (cmd === prefix)
 				return;
 			if (cmd === infix)
 				return;
 			if (cmd === suffix)
 				return;
-			if (cmd === get)
-				return;
+			if (cmd === getIndexOf)
+				return @function (@index) {
+
+				};
+			if (cmd === getValueOf)
+				return @function (@index) {
+
+				};
 			if (cmd === count)
 				return;
 			if (cmd === isEmpty)
@@ -25,7 +41,9 @@ global BST = @(function () {
 			if (cmd === height)
 				return;
 			if (cmd === equalsTo)
-				return;
+				return @function (@BST) {
+
+				};
 			if (cmd === reversePrefix)
 				return;
 			if (cmd === reverseInfix)
@@ -81,25 +99,27 @@ global BST = @(function () {
 	};
 })();
 
-global new = @'new';
-global getInstance = @'getInstance';
-global getValue = @'getValue';
-global getRightBranch = @'getRightBranch';
-global getLeftBranch = @'getLeftBranch';
-global setValue = @'getValue';
-global setRightBranch = @'getRightBranch';
-global setLeftBranch = @'getLeftBranch';
-global insert = @'insert';
-global remove = @'remove';
-global contains = @'contains';
-global prefix = @'prefix';
-global infix = @'infix';
-global suffix = @'suffix';
-global get = @'get';
-global count = @'count';
-global isEmpty = @'isEmpty';
-global height = @'height';
-global equalsTo = @'equalsTo';
-global reversePrefix = @'reversePrefix';
-global reverseInfix = @'reverseInfix';
-global reverseSuffix = @'reverseSuffix';
+global new 				= @'new';
+global getInstance 		= @'getInstance';
+global getValue 		= @'getValue';
+global getRightBranch 	= @'getRightBranch';
+global getLeftBranch	= @'getLeftBranch';
+global setValue 		= @'getValue';
+global setRightBranch	= @'getRightBranch';
+global setLeftBranch 	= @'getLeftBranch';
+global insert 			= @'insert';
+global removeIndex 		= @'removeIndex';
+global removeFirst 		= @'removeFirst';
+global contains 		= @'contains';
+global prefix 			= @'prefix';
+global infix 			= @'infix';
+global suffix 			= @'suffix';
+global getIndexOf 		= @'getIndexOf';
+global getValueOf 		= @'getValueOf';
+global count 			= @'count';
+global isEmpty 			= @'isEmpty';
+global height 			= @'height';
+global equalsTo 		= @'equalsTo';
+global reversePrefix 	= @'reversePrefix';
+global reverseInfix 	= @'reverseInfix';
+global reverseSuffix 	= @'reverseSuffix';
