@@ -97,7 +97,7 @@ global BST = @(function () {
 								};
 							if (cmd === contains)
 								return @function (@val) {
-									return @(_value === val || _left(contains)(val) || _right(contains)(val));
+									return @(_value === val || _left !== null && _left(contains)(val) || _right !== null && _right(contains)(val));
 								};
 							if (cmd === getValueOf)
 								return @function (@curIndex, @output) {
@@ -106,7 +106,7 @@ global BST = @(function () {
 										return @true;
 									} else {
 										curIndex--;
-										return @(_left(getValueOf)(curIndex, output) ||_right(getValueOf)(curIndex, output));
+										return @(_left !== null && _left(getValueOf)(curIndex, output) || _right !== null && _right(getValueOf)(curIndex, output));
 									}
 								};
 						};
