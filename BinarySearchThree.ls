@@ -79,13 +79,13 @@ global BST = @(function () {
 									if (_left !== null)
 										_left(reversePrefix)(f);
 								};
-							if (cmd === reverseinfix)
+							if (cmd === reverseInfix)
 								return function (@f) {
 									if (_right !== null)
-										_right(reverseinfix)(f);
+										_right(reverseInfix)(f);
 									f(_value);
 									if (_left !== null)
-										_left(reverseinfix)(f);
+										_left(reverseInfix)(f);
 								};
 							if (cmd === reversePostfix)
 								return function (@f) {
@@ -106,7 +106,7 @@ global BST = @(function () {
 										return @true;
 									} else {
 										curIndex--;
-										return @(_left(getValueof)(cutIndex, output) ||_right(getValueof)(cutIndex, output))
+										return @(_left(getValueOf)(curIndex, output) ||_right(getValueOf)(curIndex, output));
 									}
 								};
 						};
