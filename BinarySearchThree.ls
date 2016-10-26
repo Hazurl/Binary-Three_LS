@@ -109,6 +109,10 @@ global BST = @(function () {
 										return @(_left !== null && _left(getValueOf)(curIndex, output) || _right !== null && _right(getValueOf)(curIndex, output));
 									}
 								};
+							if (cmd === getMin)
+								return @((_left === null) ? _value : _left(getMin));
+							if (cmd === getMax)
+								return @((_right === null) ? _value : _right(getMax));
 						};
 					})();
 				};
@@ -163,12 +167,24 @@ global BST = @(function () {
 						return @output;
 					}
 				};
+			if (cmd === getMin) {
+				if (_root === null)
+					return ; // null
+				return @_root(getMin);
+			}
+			if (cmd === getMax) {
+				if (_root === null)
+					return ; // null
+				return @_root(getMax);
+			}
 			if (cmd === count)
 				return @_count;
 			if (cmd === isEmpty)
 				return @(_root === null);
-			if (cmd === height)
-				return;
+			if (cmd === height) {
+				if (_root === null)
+					return @0;
+			}
 			if (cmd === equalsTo)
 				return @function (@_BST) {
 
@@ -188,6 +204,13 @@ global BST = @(function () {
 					if (_root !== null)
 						_root(reversePostfix)(f);
 				};
+			if (cmd === toArray) {
+				if (_root === null)
+					retunr @[];
+				var tab = @[];
+				_root(infix)( function (@v) { push(tab, v); } );
+				return @tab;
+			}
 		};
 	};
 
@@ -230,3 +253,6 @@ global equalsTo 		= @'equalsTo';
 global reversePrefix 	= @'reversePrefix';
 global reverseInfix 	= @'reverseInfix';
 global reversePostfix 	= @'reversePostfix';
+global toArray 			= @'toArray';
+global getMin 			= @'getMin';
+global getMax 			= @'getMax';
