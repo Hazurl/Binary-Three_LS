@@ -1,8 +1,9 @@
 // Binary Search three
 global BST = @(function () {
 	var _new = @function (@OrderFunction) {
-		var _root = @null;
+		var _root;
 		var _orderFunction = @OrderFunction;
+		var _count = @0;
 
 		var Three = @function (@_cmd) {
 			if (_cmd === new)
@@ -54,6 +55,60 @@ global BST = @(function () {
 									if (_right !== null)
 										_right(prefix)(f);
 								};
+							if (cmd === infix)
+								return function (@f) {
+									if (_left !== null)
+										_left(prefix)(f);
+									f(_value);
+									if (_right !== null)
+										_right(prefix)(f);
+								};
+							if (cmd === postfix)
+								return function (@f) {
+									if (_left !== null)
+										_left(prefix)(f);
+									if (_right !== null)
+										_right(prefix)(f);
+									f(_value);
+								};
+							if (cmd === reversePrefix)
+								return function (@f) {
+									f(_value);
+									if (_right !== null)
+										_right(reversePrefix)(f);
+									if (_left !== null)
+										_left(reversePrefix)(f);
+								};
+							if (cmd === reverseinfix)
+								return function (@f) {
+									if (_right !== null)
+										_right(reverseinfix)(f);
+									f(_value);
+									if (_left !== null)
+										_left(reverseinfix)(f);
+								};
+							if (cmd === reversePostfix)
+								return function (@f) {
+									if (_right !== null)
+										_right(reversePostfix)(f);
+									if (_left !== null)
+										_left(reversePostfix)(f);
+									f(_value);
+								};
+							if (cmd === contains)
+								return @function (@val) {
+									return @(_value === val || _left(contains)(val) || _right(contains)(val));
+								};
+							if (cmd === getValueOf)
+								return @function (@curIndex, @output) {
+									if (!curIndex) { // curIndex = 0
+										output = _value;
+										return @true;
+									} else {
+										curIndex--;
+										return @(_left(getValueof)(cutIndex, output) ||_right(getValueof)(cutIndex, output))
+									}
+								};
 						};
 					})();
 				};
@@ -62,6 +117,7 @@ global BST = @(function () {
 		return @function (@cmd) {
 			if (cmd === insert)
 				return @function (@value) {
+					_count++;
 					if (_root === null)
 						_root = Three(new)(value);
 					else {
@@ -70,15 +126,17 @@ global BST = @(function () {
 				};
 			if (cmd === removeIndex)
 				return @function (@index) {
-					
+					// _count--;
 				};
 			if (cmd === removeFirst)
 				return @function (@index) {
-					
+					// _count--;
 				};
 			if (cmd === contains)
 				return @function (@value) {
-
+					if (_root === null)
+						return @false;
+					return _root(contains)(value);
 				};
 			if (cmd === prefix)
 				return function (@f) {
@@ -87,24 +145,28 @@ global BST = @(function () {
 				};
 			if (cmd === infix)
 				return function (@f) {
-
+					if (_root !== null)
+						_root(infix)(f);
 				};
-			if (cmd === suffix)
+			if (cmd === postfix)
 				return function (@f) {
-
+					if (_root !== null)
+						_root(postfix)(f);
 				};
 			if (cmd === getIndexOf)
-				return @function (@index) {
-
+				return @function (@value) {
 				};
 			if (cmd === getValueOf)
 				return @function (@index) {
-
+					if (_root !== null) {
+						var output; _root(getValueOf)(index, output);
+						return @output;
+					}
 				};
 			if (cmd === count)
-				return;
+				return @_count;
 			if (cmd === isEmpty)
-				return;
+				return @(_root === null);
 			if (cmd === height)
 				return;
 			if (cmd === equalsTo)
@@ -112,11 +174,20 @@ global BST = @(function () {
 
 				};
 			if (cmd === reversePrefix)
-				return;
+				return function (@f) {
+					if (_root !== null)
+						_root(reversePrefix)(f);
+				};
 			if (cmd === reverseInfix)
-				return;
-			if (cmd === reverseSuffix)
-				return;
+				return function (@f) {
+					if (_root !== null)
+						_root(reverseInfix)(f);
+				};
+			if (cmd === reversePostfix)
+				return function (@f) {
+					if (_root !== null)
+						_root(reversePostfix)(f);
+				};
 		};
 	};
 
@@ -149,7 +220,7 @@ global removeFirst 		= @'removeFirst';
 global contains 		= @'contains';
 global prefix 			= @'prefix';
 global infix 			= @'infix';
-global suffix 			= @'suffix';
+global postfix 			= @'postfix';
 global getIndexOf 		= @'getIndexOf';
 global getValueOf 		= @'getValueOf';
 global count 			= @'count';
@@ -158,4 +229,4 @@ global height 			= @'height';
 global equalsTo 		= @'equalsTo';
 global reversePrefix 	= @'reversePrefix';
 global reverseInfix 	= @'reverseInfix';
-global reverseSuffix 	= @'reverseSuffix';
+global reversePostfix 	= @'reversePostfix';
